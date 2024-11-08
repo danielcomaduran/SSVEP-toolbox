@@ -163,6 +163,8 @@ cython_debug/
 
 # DrawIO temporary files
 *.drawio.bak 
+*.drawio.bkp
+*.drawio.dtmp
 *.drawio#* 
 *.tmp
 
