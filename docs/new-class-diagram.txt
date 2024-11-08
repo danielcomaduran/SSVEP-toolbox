@@ -1,0 +1,158 @@
++------------------------+
+|    FeatureExtractor    |
++------------------------+
+| - pre_processing: PreProcessing |
+| - voting: Voting       |
+| - cuda: CUDACapabilities |
+| - batch_processor: BatchProcessor |
+| - template_matching: TemplateMatching |
+| - all_signals: np.ndarray |
+| - signals_count: int   |
+| - electrodes_count: int |
+| - samples_count: int   |
+| - class_initialization_is_complete: bool |
++------------------------+
+| + build_feature_extractor(...) |
+| + extract_features(...)        |
+| + process_signals_platform_agnostic() |
+| + process_signals_multithreaded() |
+| + extract_features_multithreaded(idx: int) |
+| + class_specific_initializations()    |
+| + handle_generator(to_copy: np.ndarray) |
+| + get_current_data_batch() |
++------------------------+
+
++------------------------+
+|     PreProcessing      |
++------------------------+
+| - filtering: Filtering |
+| - time_embedding: TimeEmbedding |
++------------------------+
+| + bandpass_filter(signals: np.ndarray)    |
+| + decompose_signal(signals: np.ndarray)   |
+| + embed_time_delay(signals: np.ndarray)   |
++------------------------+
+
++------------------------+
+|       Filtering        |
++------------------------+
+| - filter_order: int    |
+| - cutoff_frequency_low: float |
+| - cutoff_frequency_high: float |
+| - sampling_frequency: float |
+| - sos_matrices: np.ndarray |
++------------------------+
+| + construct_filters(subbands: np.ndarray) |
+| + bandpass_filter(signals: np.ndarray)    |
+| + decompose_signal(signals: np.ndarray)   |
++------------------------+
+
++------------------------+
+|    TimeEmbedding       |
++------------------------+
+| - embedding_dimension: int |
+| - delay_step: int      |
++------------------------+
+| + embed_time_delay(signals: np.ndarray)   |
++------------------------+
+
++------------------------+
+|        Voting          |
++------------------------+
+| - voters_count: int    |
+| - random_seed: int     |
+| - channel_selections: np.ndarray |
++------------------------+
+| + generate_random_selection(electrodes_count: int) |
+| + select_channels(electrodes_count: int)           |
++------------------------+
+
++------------------------+
+|   CUDACapabilities     |
++------------------------+
+| - use_gpu: bool        |
+| - devices_count: int   |
++------------------------+
+| + get_array_module(array: np.ndarray) |
+| + handle_generator(to_copy: np.ndarray) |
++------------------------+
+
++------------------------+
+|  TemplateMatching      |
++------------------------+
+| - harmonics_count: int |
+| - targets_frequencies: np.ndarray |
+| - samples_count: int   |
+| - sampling_frequency: float |
+| - template_signal: np.ndarray |
++------------------------+
+| + compute_templates()  |
++------------------------+
+
++------------------------+
+|   BatchProcessor       |
++------------------------+
+| + get_current_data_batch() |
++------------------------+
+
++-----------------------------------+
+| FeatureExtractorTemplateMatching  |
++-----------------------------------+
+| + build_feature_extractor(...)    |
+| + class_specific_initializations() |
+| + compute_templates()             |
++-----------------------------------+
+
++------------------------+
+| FeatureExtractorMSI    |
++------------------------+
+| - C22: np.ndarray      |
++------------------------+
+| + setup_feature_extractor(...) |
+| + get_features(device: int)    |
+| + get_features_multithreaded(signal: np.ndarray) |
+| + compute_synchronization_index(signal: np.ndarray, device: int) |
+| + compute_r(signal: np.ndarray, device: int) |
+| + get_data_covariance(signal: np.ndarray, device: int) |
+| + matrix_square_root(A: np.ndarray) |
+| + perform_voting_initialization(device: int) |
+| + class_specific_initializations() |
+| + precompute_template_covariance() |
+| + get_current_data_batch()         |
++------------------------+
+
++------------------------+
+| FeatureExtractorMEC    |
++------------------------+
+| - ar_order: int        |
+| - energy_ratio: float  |
+| - xplus: np.ndarray    |
+| - sub_template_inverse: np.ndarray |
++------------------------+
+| + setup_feature_extractor(...) |
+| + get_features(device: int)    |
+| + get_features_multithreaded(signal: np.ndarray) |
+| + compute_snr(signal: np.ndarray, y_bar_squared: np.ndarray, device: int) |
+| + project_signal(signal: np.ndarray, y_bar_squared: np.ndarray, device: int) |
+| + compute_channels_count(eigen_values: np.ndarray, device: int) |
+| + yule_walker(time_series: np.ndarray, device: int) |
+| + perform_voting_initialization(device: int) |
+| + class_specific_initializations() |
+| + precompute_each_harmonic_inverse() |
+| + get_current_data_batch()         |
++------------------------+
+
++------------------------+
+| FeatureExtractorCCA    |
++------------------------+
+| - max_correlation_only: bool |
++------------------------+
+| + setup_feature_extractor(...) |
+| + get_features(device: int)    |
+| + get_features_multithreaded(signal: np.ndarray) |
+| + canonical_correlation_reduced(signal: np.ndarray, device: int) |
+| + qr_decomposition(X: np.ndarray) |
+| + perform_voting_initialization(device: int) |
+| + class_specific_initializations() |
+| + get_current_data_batch()         |
++------------------------+

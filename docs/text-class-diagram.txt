@@ -1,0 +1,120 @@
++-----------------------------+
+|       FeatureExtractor      |
++-----------------------------+
+| - all_signals: np.ndarray   |
+| - signals_count: int        |
+| - electrodes_count: int     |
+| - features_count: int       |
+| - embedding_dimension: int  |
+| - delay_step: int           |
+| - samples_count: int        |
+| - filter_order: int         |
+| - cutoff_frequency_low: float |
+| - cutoff_frequency_high: float |
+| - sampling_frequency: float |
+| - subbands: np.ndarray      |
+| - subbands_count: int       |
+| - is_filterbank: bool       |
+| - sos_matrices: np.ndarray  |
+| - voters_count: int         |
+| - random_seed: int          |
+| - channel_selections: np.ndarray |
+| - channel_selection_info_bundle: tuple |
+| - use_gpu: bool             |
+| - max_batch_size: int       |
+| - explicit_multithreading: int |
+| - class_initialization_is_complete: bool |
+| - devices_count: int        |
++-----------------------------+
+| + __init__()                |
+| + build_feature_extractor(harmonics_count: int, targets_frequencies: np.ndarray, sampling_frequency: float, subbands: np.ndarray = None, embedding_dimension: int = 0, delay_step: int = 0, filter_order: int = 0, filter_cutoff_low: float = 0, filter_cutoff_high: float = 0, voters_count: int = 1, random_seed: int = 0, use_gpu: bool = False, max_batch_size: int = 16, explicit_multithreading: int = 0, samples_count: int = 0) -> None |
+| + extract_features(all_signals: np.ndarray) -> np.ndarray |
+| + get_features(device: int) -> np.ndarray |
+| + get_features_multithreaded(signal: np.ndarray) -> np.ndarray |
+| + perform_voting_initialization(device: int = 0) -> None |
+| + class_specific_initializations() -> None |
+| + process_signals_platform_agnostic() -> np.ndarray |
+| + process_signals_multithreaded() -> np.ndarray |
+| + extract_features_multithreaded(idx: int) -> np.ndarray |
+| + handle_generator(to_copy: np.ndarray) -> list |
+| + generate_random_selection() -> np.ndarray |
+| + select_channels() -> None |
+| + embed_time_delay() -> None |
+| + bandpass_filter() -> None |
+| + quit(message: str = "Error") -> None |
+| + construct_filters() -> None |
+| + decompose_signal() -> None |
+| + decompose_signal_thread_task(task_index: int) -> np.ndarray |
+| + get_array_module(array: np.ndarray) -> np |
+| + filterbank_standard_aggregator(features: np.ndarray, a: float = 1.25, b: float = 0.25, axis: int = 1) -> np.ndarray |
+| + voting_classification_by_count(features: np.ndarray) -> np.ndarray |
++-----------------------------+
+            ^
+            |
++-----------------------------+
+| FeatureExtractorTemplateMatching |
++-----------------------------+
+| - template_signal: np.ndarray |
+| - harmonics_count: int       |
+| - targets_frequencies: np.ndarray |
+| - targets_count: int         |
++-----------------------------+
+| + __init__()                |
+| + compute_templates() -> None |
+| + template_signal (getter and setter) -> np.ndarray |
+| + harmonics_count (getter and setter) -> int |
+| + targets_frequencies (getter and setter) -> np.ndarray |
+| + targets_count (getter and setter) -> int |
++-----------------------------+
+            ^
+            |
++-----------------------------+       +-----------------------------+       +-----------------------------+
+|    FeatureExtractorMSI      |       |    FeatureExtractorMEC      |       |    FeatureExtractorCCA      |
++-----------------------------+       +-----------------------------+       +-----------------------------+
+| - C22: np.ndarray           |       | - ar_order: int             |       | - max_correlation_only: bool |
++-----------------------------+       | - energy_ratio: float       |       +-----------------------------+
+| + __init__()                |       | - xplus: np.ndarray         |       | + __init__()                |
+| + setup_feature_extractor(harmonics_count: int, targets_frequencies: np.ndarray, sampling_frequency: float, embedding_dimension: int = 0, delay_step: int = 0, filter_order: int = 0, filter_cutoff_low: float = 0, filter_cutoff_high: float = 0, subbands: np.ndarray = None, voters_count: int = 1, random_seed: int = 0, use_gpu: bool = False, max_batch_size: int = 16, explicit_multithreading: int = 0, samples_count: int = 0) -> None |
+| + get_features(device: int) -> np.ndarray |
+| + get_features_multithreaded(signal: np.ndarray) -> np.ndarray |
+| + compute_synchronization_index(signal: np.ndarray, device: int) -> np.ndarray |
+| + compute_r(signal: np.ndarray, device: int) -> np.ndarray |
+| + get_data_covariance(signal: np.ndarray, device: int) -> np.ndarray |
+| + matrix_square_root(A: np.ndarray) -> np.ndarray |
+| + perform_voting_initialization(device: int = 0) -> None |
+| + class_specific_initializations() -> None |
+| + precompute_template_covariance() -> None |
+| + get_current_data_batch() -> np.ndarray |
++-----------------------------+       | + sub_template_inverse: np.ndarray |
+                                      | + setup_feature_extractor(harmonics_count: int, targets_frequencies: np.ndarray, sampling_frequency: float, ar_order: int = 15, energy_ratio: float = 0.05, embedding_dimension: int = 0, delay_step: int = 0, filter_order: int = 0, filter_cutoff_low: float = 0, filter_cutoff_high: float = 0, subbands: np.ndarray = None, voters_count: int = 1, random_seed: int = 0, use_gpu: bool = False, max_batch_size: int = 16, explicit_multithreading: int = 0, samples_count: int = 0) -> None |
+                                      | + get_features(device: int) -> np.ndarray |
+                                      | + get_features_multithreaded(signal: np.ndarray) -> np.ndarray |
+                                      | + compute_snr(signal: np.ndarray, y_bar_squared: np.ndarray, device: int) -> np.ndarray |
+                                      | + project_signal(signal: np.ndarray, y_bar_squared: np.ndarray, device: int) -> tuple |
+                                      | + compute_channels_count(eigen_values: np.ndarray, device: int) -> np.ndarray |
+                                      | + yule_walker(time_series: np.ndarray, device: int) -> tuple |
+                                      | + perform_voting_initialization(device: int) -> None |
+                                      | + class_specific_initializations() -> None |
+                                      | + precompute_each_harmonic_inverse() -> None |
+                                      | + get_current_data_batch() -> tuple |
+                                      | + ar_order (getter and setter) -> int |
+                                      | + energy_ratio (getter and setter) -> float |
+                                      +-----------------------------+
+            ^
+            |
++-----------------------------+
+|    FeatureExtractorCCA      |
++-----------------------------+
+| - max_correlation_only: bool |
++-----------------------------+
+| + __init__()                |
+| + setup_feature_extractor(harmonics_count: int, targets_frequencies: np.ndarray, sampling_frequency: float, subbands: np.ndarray = None, max_correlation_only: bool = True, embedding_dimension: int = 0, delay_step: int = 0, filter_order: int = 0, filter_cutoff_low: float = 0, filter_cutoff_high: float = 0, voters_count: int = 1, random_seed: int = 0, use_gpu: bool = False, max_batch_size: int = 16, explicit_multithreading: int = 0, samples_count: int = 0) -> None |
+| + get_features(device: int) -> np.ndarray |
+| + get_features_multithreaded(signal: np.ndarray) -> np.ndarray |
+| + canonical_correlation_reduced(signal: np.ndarray, device: int) -> np.ndarray |
+| + qr_decomposition(X: np.ndarray) -> np.ndarray |
+| + perform_voting_initialization(device: int = 0) -> None |
+| + class_specific_initializations() -> None |
+| + get_current_data_batch() -> np.ndarray |
+| + max_correlation_only (getter and setter) -> bool |
++-----------------------------+

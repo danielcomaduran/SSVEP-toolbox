@@ -1,0 +1,357 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17" pages="2">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="original-implementation">
+    <mxGraphModel dx="4018" dy="1915" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="zkfFHV4jXpPFQw0GAbJ--0" value="FeatureExtraction" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;fontFamily=Lucida Console;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="40" y="90" width="746" height="800" as="geometry">
+            <mxRectangle x="230" y="140" width="160" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zkfFHV4jXpPFQw0GAbJ--1" value="- all_signals: np.ndarray&#xa;&#xa;- signals_count: int&#xa;- electrodes count: int&#xa;- features_count: int&#xa;- embedding_dimension: int&#xa;- delay_step: int&#xa;- samples_count: int&#xa;&#xa;- filter_order: int&#xa;- cut_off_frequency_low: float&#xa;- cut_off_frequency_high: float&#xa;- sampling_frequency: float&#xa;&#xa;- subbands: np.ndarray&#xa;- subbands_count: int&#xa;- is_filterbank: bool&#xa;- sos_matrices: np.ndarray&#xa;&#xa;- voters_count: int&#xa;- random_seed: int&#xa;- channel _selections: np.ndarray&#xa;- channel_selection_info_bundle: tuple&#xa;&#xa;&#xa;- use_gpu: bool&#xa;- max_batch_size: int&#xa;- explicit_multithreading: int&#xa;+ class_initialization_is_complete: bool&#xa;+ devices_count: int&#xa;&#xa;" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" parent="zkfFHV4jXpPFQw0GAbJ--0" vertex="1">
+          <mxGeometry y="26" width="746" height="454" as="geometry" />
+        </mxCell>
+        <mxCell id="zkfFHV4jXpPFQw0GAbJ--4" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="zkfFHV4jXpPFQw0GAbJ--0" vertex="1">
+          <mxGeometry y="480" width="746" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="zkfFHV4jXpPFQw0GAbJ--5" value="+ __init__()&#xa;+ build_feature_extractor()&#xa;+ extract_features(all_signals: np.ndarray) -&gt; np.ndarray&#xa;+ get_features(device: int) -&gt; np.ndarray&#xa;+ get_features_multithreaded(signal: np.ndarray) -&gt; np.ndarray&#xa;+ perform_voting_initialization(device: int=0)&#xa;+ class_specific_initializations()&#xa;+ process_signals_plaftorm_agnostic() -&gt; np.ndarray&#xa;+ process_signals_miltithreaded() -&gt; np.ndarray&#xa;+ handle_generator(to_copy: np.ndarray) -&gt; list&#xa;+ generate_random_selection() -&gt; np.ndarray&#xa;+ select_channels()&#xa;+ embe_time_delay()&#xa;+ bandpass_filter()&#xa;+ quit(message: str=&quot;Error)&#xa;+ construct_filters() &#xa;+ decompose_signal()&#xa;+ decompose_signal_thread_task(task_index: int) -&gt; np.ndarray&#xa;+ get_array_module(array: np.ndarray) -&gt; np.ndarray&#xa;+ filterbank_standard_aggregator(features: np.ndarray, a: float=1.25, b: float=0.25, axis: int=1&#xa;+ voting_classification_by_count(features: np.ndarray) -&gt; np.ndarray&#xa;" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" parent="zkfFHV4jXpPFQw0GAbJ--0" vertex="1">
+          <mxGeometry y="488" width="746" height="312" as="geometry" />
+        </mxCell>
+        <mxCell id="zkfFHV4jXpPFQw0GAbJ--6" value="FeatureExtractorTemplateMatching" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;fontFamily=Lucida Console;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="206" y="950" width="414" height="270" as="geometry">
+            <mxRectangle x="130" y="380" width="160" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zkfFHV4jXpPFQw0GAbJ--7" value="- template_signal: np.ndarray&#xa;- harmonics_count: int&#xa;- target_frequencies: np.ndarray&#xa;- target_count: int" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" parent="zkfFHV4jXpPFQw0GAbJ--6" vertex="1">
+          <mxGeometry y="26" width="414" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="zkfFHV4jXpPFQw0GAbJ--9" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="zkfFHV4jXpPFQw0GAbJ--6" vertex="1">
+          <mxGeometry y="130" width="414" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="zkfFHV4jXpPFQw0GAbJ--10" value="+ __init__()&#xa;+ compute_templates() -&gt; None&#xa;+ template_signal (getter and setter) -&gt; np.ndarray&#xa;+ harmonics_count (getter and setter) -&gt; int&#xa;+ target_frequencies (getter and setter) -&gt; np.ndarray&#xa;+ target_counts (getter and setter) -&gt; int" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;fontFamily=Lucida Console;" parent="zkfFHV4jXpPFQw0GAbJ--6" vertex="1">
+          <mxGeometry y="138" width="414" height="122" as="geometry" />
+        </mxCell>
+        <mxCell id="zkfFHV4jXpPFQw0GAbJ--12" value="" style="endArrow=block;endSize=10;endFill=0;shadow=0;strokeWidth=1;rounded=0;curved=0;edgeStyle=elbowEdgeStyle;elbow=vertical;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="zkfFHV4jXpPFQw0GAbJ--6" target="zkfFHV4jXpPFQw0GAbJ--0" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="313" y="173" as="sourcePoint" />
+            <mxPoint x="313" y="173" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Mj3dOKa17zoIPlMxbFLB-10" value="Original class implementation" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="235" y="30" width="357" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="JDWsRXZNb_Xpo8v7Dtvx-1" value="Global vairables" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=Lucida Console;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="827" y="90" width="200" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="JDWsRXZNb_Xpo8v7Dtvx-2" value="+ cupy_available_global" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Lucida Console;" vertex="1" parent="JDWsRXZNb_Xpo8v7Dtvx-1">
+          <mxGeometry y="26" width="200" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="JDWsRXZNb_Xpo8v7Dtvx-5" value="FeatureExtractorMSI" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;fontFamily=Lucida Console;flipH=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="-519" y="1300" width="570" height="300" as="geometry">
+            <mxRectangle x="130" y="380" width="160" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JDWsRXZNb_Xpo8v7Dtvx-6" value="- cov_mat_22: np.ndarray" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" vertex="1" parent="JDWsRXZNb_Xpo8v7Dtvx-5">
+          <mxGeometry y="26" width="570" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="JDWsRXZNb_Xpo8v7Dtvx-7" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="JDWsRXZNb_Xpo8v7Dtvx-5">
+          <mxGeometry y="70" width="570" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="JDWsRXZNb_Xpo8v7Dtvx-8" value="+ __init__()&#xa;+ setup_feature_extractor(...)&#xa;+ get_features(device: int) -&gt; np.ndarray&#xa;+ get_features_multithreaded(signal: np.ndarray) -&gt; nd.array&#xa;+ compute_syncronization_index(signal: np.ndarray, device:int) -&gt; np.ndarray&#xa;+ compute_r(signal: np.ndarray, device: int) -&gt; np.ndarray&#xa;+ get_data_covariance(signal: np.ndarray, device: int) -&gt; np.ndarray&#xa;+ matrix_square_root(A: np.ndarray) -&gt; np.ndarray&#xa;+ perform_voting_initialization(device: int=0)&#xa;+ precompute_template_covariance()&#xa;+ get_current_data_batch()&#xa;" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;fontFamily=Lucida Console;" vertex="1" parent="JDWsRXZNb_Xpo8v7Dtvx-5">
+          <mxGeometry y="78" width="570" height="222" as="geometry" />
+        </mxCell>
+        <mxCell id="JDWsRXZNb_Xpo8v7Dtvx-9" value="FeatureExtractorMEC" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;fontFamily=Lucida Console;flipH=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="90" y="1300" width="646" height="380" as="geometry">
+            <mxRectangle x="130" y="380" width="160" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JDWsRXZNb_Xpo8v7Dtvx-10" value="- ar_order: int&#xa;- energy_ratio: float&#xa;- xplus: np.ndarray&#xa;+ sub_template_inverse: np.ndarray" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" vertex="1" parent="JDWsRXZNb_Xpo8v7Dtvx-9">
+          <mxGeometry y="26" width="646" height="74" as="geometry" />
+        </mxCell>
+        <mxCell id="JDWsRXZNb_Xpo8v7Dtvx-11" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="JDWsRXZNb_Xpo8v7Dtvx-9">
+          <mxGeometry y="100" width="646" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="JDWsRXZNb_Xpo8v7Dtvx-12" value="+ __init__()&#xa;+ setup_feature_extractor(...)&#xa;+ get_features(degice: int) -&gt; np.ndarray&#xa;+ get_features_multithreaded(signal: np.ndarray) -&gt; nd.array&#xa;+ compute_snr(signal: np.ndarray, y_bar_squared: np.ndarray, device:int) -&gt; np.ndarray&#xa;+ project_signal(signal: np.ndarray, y_bar_squared: np.ndarray, device:int) -&gt; tuple&#xa;+ compute_channels_count(eigen_values: np.ndarray, device: int) -&gt; np.ndarray&#xa;+ yule_walker(time_series: np.ndarray, device: int) -&gt; tuple&#xa;+ perform_voting_initialization(device: int=0)&#xa;+ class_specific_initializations() -&gt; None&#xa;&#xa;+ class_specific_initializations()&#xa;+ precompute_each_harmonic_inverse()&#xa;+ get_current_data_batch() -&gt; tuple&#xa;&#xa;+ ar_order (getter and setter) -&gt; int&#xa;+ energy_ratio (getter and setter) -&gt; float&#xa;&#xa;&#xa;" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;fontFamily=Lucida Console;" vertex="1" parent="JDWsRXZNb_Xpo8v7Dtvx-9">
+          <mxGeometry y="108" width="646" height="272" as="geometry" />
+        </mxCell>
+        <mxCell id="JDWsRXZNb_Xpo8v7Dtvx-20" value="FeatureExtractorCCA" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;fontFamily=Lucida Console;flipH=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="780" y="1300" width="586" height="280" as="geometry">
+            <mxRectangle x="130" y="380" width="160" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JDWsRXZNb_Xpo8v7Dtvx-21" value="- max_correlation_only: bool" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" vertex="1" parent="JDWsRXZNb_Xpo8v7Dtvx-20">
+          <mxGeometry y="26" width="586" height="74" as="geometry" />
+        </mxCell>
+        <mxCell id="JDWsRXZNb_Xpo8v7Dtvx-22" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="JDWsRXZNb_Xpo8v7Dtvx-20">
+          <mxGeometry y="100" width="586" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="JDWsRXZNb_Xpo8v7Dtvx-23" value="+ __init__()                |&#xa;+ setup_feature_extractor(...)&#xa;+ get_features(device: int) -&gt; np.ndarray&#xa;+ get_features_multithreaded(signal: np.ndarray) -&gt; np.ndarray&#xa;+ canonical_correlation_reduced(signal: np.ndarray, device: int) -&gt; np.ndarray&#xa;+ qr_decomposition(X: np.ndarray) -&gt; np.ndarray&#xa;+ perform_voting_initialization(device: int = 0)&#xa;+ class_specific_initializations()&#xa;+ get_current_data_batch() -&gt; np.ndarray&#xa;&#xa;+ max_correlation_only (getter and setter) -&gt; bool" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;fontFamily=Lucida Console;" vertex="1" parent="JDWsRXZNb_Xpo8v7Dtvx-20">
+          <mxGeometry y="108" width="586" height="172" as="geometry" />
+        </mxCell>
+        <mxCell id="JDWsRXZNb_Xpo8v7Dtvx-24" value="" style="endArrow=block;endSize=10;endFill=0;shadow=0;strokeWidth=1;rounded=0;curved=0;edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="JDWsRXZNb_Xpo8v7Dtvx-5" target="zkfFHV4jXpPFQw0GAbJ--6">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-30" y="1220" as="sourcePoint" />
+            <mxPoint x="-30" y="1160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JDWsRXZNb_Xpo8v7Dtvx-26" value="" style="endArrow=block;endSize=10;endFill=0;shadow=0;strokeWidth=1;rounded=0;curved=0;edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="JDWsRXZNb_Xpo8v7Dtvx-9" target="zkfFHV4jXpPFQw0GAbJ--6">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="443" y="980" as="sourcePoint" />
+            <mxPoint x="443" y="920" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JDWsRXZNb_Xpo8v7Dtvx-27" value="" style="endArrow=block;endSize=10;endFill=0;shadow=0;strokeWidth=1;rounded=0;curved=0;edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="JDWsRXZNb_Xpo8v7Dtvx-20" target="zkfFHV4jXpPFQw0GAbJ--6">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="453" y="990" as="sourcePoint" />
+            <mxPoint x="420" y="1240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="new-implementation" id="_X8tnK33TUT0dTS4DziF">
+    <mxGraphModel dx="3592" dy="1660" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="dgEscPDrHbFopAYu3Is1-0" />
+        <mxCell id="dgEscPDrHbFopAYu3Is1-1" parent="dgEscPDrHbFopAYu3Is1-0" />
+        <mxCell id="dgEscPDrHbFopAYu3Is1-2" value="FeatureExtraction" style="swimlane;fontStyle=2;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;fontFamily=Lucida Console;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-1">
+          <mxGeometry x="249" y="90" width="330" height="400" as="geometry">
+            <mxRectangle x="230" y="140" width="160" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dgEscPDrHbFopAYu3Is1-3" value="- pre_processing: PreProcessing&#xa;- batch_processor: BatchProcessor&#xa;- voting: Voting&#xa;- gpu_capabilities: GPUCapabilities&#xa;- template_matching: TemplateMatching&#xa;&#xa;- all_signals: np.ndarray&#xa;- signals_count: int&#xa;- electrodes_count: int&#xa;- samples_count: int&#xa;" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-2">
+          <mxGeometry y="26" width="330" height="164" as="geometry" />
+        </mxCell>
+        <mxCell id="dgEscPDrHbFopAYu3Is1-4" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-2">
+          <mxGeometry y="190" width="330" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="dgEscPDrHbFopAYu3Is1-5" value="+ __init__()&#xa;+ build_feature_extractor(...)&#xa;+ extract_features(...)&#xa;+ process_signals_plaftorm_agnostic()&#xa;+ process_signals_multithreaded()&#xa;+ extract_features_multithreaded()&#xa;+class_specific_initializations()&#xa;+ handle_generator(to_copy: np.ndarray)&#xa;+ get_current_data_bacth&#xa;" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-2">
+          <mxGeometry y="198" width="330" height="152" as="geometry" />
+        </mxCell>
+        <mxCell id="dgEscPDrHbFopAYu3Is1-11" value="New class implementation" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-1">
+          <mxGeometry x="235" y="30" width="357" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgEscPDrHbFopAYu3Is1-14" value="FeatureExtractorMSI" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;fontFamily=Lucida Console;flipH=1;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-1">
+          <mxGeometry x="-529" y="820" width="570" height="300" as="geometry">
+            <mxRectangle x="130" y="380" width="160" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dgEscPDrHbFopAYu3Is1-15" value="- cov_mat_22: np.ndarray" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-14">
+          <mxGeometry y="26" width="570" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="dgEscPDrHbFopAYu3Is1-16" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-14">
+          <mxGeometry y="70" width="570" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="dgEscPDrHbFopAYu3Is1-17" value="+ __init__()&#xa;+ setup_feature_extractor(...)&#xa;+ get_features(degice: int) -&gt; np.ndarray&#xa;+ get_features_multithreaded(signal: np.ndarray) -&gt; nd.array&#xa;+ compute_syncronization_index(signal: np.ndarray, device:int) -&gt; np.ndarray&#xa;+ compute_r(signal: np.ndarray, device: int) -&gt; np.ndarray&#xa;+ get_data_covariance(signal: np.ndarray, device: int) =? np.ndarray&#xa;+ matrix_square_root(A: np.ndarray) -&gt; np.ndarray&#xa;+ perform_voting_initialization(device: int=0)&#xa;+ precompute_template_covariance()&#xa;+ get_current_data_batch()&#xa;" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;fontFamily=Lucida Console;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-14">
+          <mxGeometry y="78" width="570" height="222" as="geometry" />
+        </mxCell>
+        <mxCell id="dgEscPDrHbFopAYu3Is1-18" value="FeatureExtractorMEC" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;fontFamily=Lucida Console;flipH=1;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-1">
+          <mxGeometry x="91" y="820" width="646" height="380" as="geometry">
+            <mxRectangle x="130" y="380" width="160" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dgEscPDrHbFopAYu3Is1-19" value="- ar_order: int&#xa;- energy_ratio: float&#xa;- xplus: np.ndarray&#xa;+ sub_template_inverse: np.ndarray" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-18">
+          <mxGeometry y="26" width="646" height="74" as="geometry" />
+        </mxCell>
+        <mxCell id="dgEscPDrHbFopAYu3Is1-20" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-18">
+          <mxGeometry y="100" width="646" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="dgEscPDrHbFopAYu3Is1-21" value="+ __init__()&#xa;+ setup_feature_extractor(...)&#xa;+ get_features(degice: int) -&gt; np.ndarray&#xa;+ get_features_multithreaded(signal: np.ndarray) -&gt; nd.array&#xa;+ compute_snr(signal: np.ndarray, y_bar_squared: np.ndarray, device:int) -&gt; np.ndarray&#xa;+ project_signal(signal: np.ndarray, y_bar_squared: np.ndarray, device:int) -&gt; tuple&#xa;+ compute_channels_count(eigen_values: np.ndarray, device: int) -&gt; np.ndarray&#xa;+ yule_walker(time_series: np.ndarray, device: int) -&gt; tuple&#xa;+ perform_voting_initialization(device: int=0)&#xa;+ class_specific_initializations() -&gt; None&#xa;&#xa;+ class_specific_initializations()&#xa;+ precompute_each_harmonic_inverse()&#xa;+ get_current_data_batch() -&gt; tuple&#xa;&#xa;+ ar_order (getter and setter) -&gt; int&#xa;+ energy_ratio (getter and setter) -&gt; float&#xa;&#xa;&#xa;" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;fontFamily=Lucida Console;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-18">
+          <mxGeometry y="108" width="646" height="272" as="geometry" />
+        </mxCell>
+        <mxCell id="dgEscPDrHbFopAYu3Is1-22" value="FeatureExtractorCCA" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;fontFamily=Lucida Console;flipH=1;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-1">
+          <mxGeometry x="770" y="820" width="586" height="280" as="geometry">
+            <mxRectangle x="130" y="380" width="160" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dgEscPDrHbFopAYu3Is1-23" value="- max_correlation_only: bool" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-22">
+          <mxGeometry y="26" width="586" height="74" as="geometry" />
+        </mxCell>
+        <mxCell id="dgEscPDrHbFopAYu3Is1-24" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-22">
+          <mxGeometry y="100" width="586" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="dgEscPDrHbFopAYu3Is1-25" value="+ __init__()                |&#xa;+ setup_feature_extractor(...)&#xa;+ get_features(device: int) -&gt; np.ndarray&#xa;+ get_features_multithreaded(signal: np.ndarray) -&gt; np.ndarray&#xa;+ canonical_correlation_reduced(signal: np.ndarray, device: int) -&gt; np.ndarray&#xa;+ qr_decomposition(X: np.ndarray) -&gt; np.ndarray&#xa;+ perform_voting_initialization(device: int = 0)&#xa;+ class_specific_initializations()&#xa;+ get_current_data_batch() -&gt; np.ndarray&#xa;&#xa;+ max_correlation_only (getter and setter) -&gt; bool" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;fontFamily=Lucida Console;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-22">
+          <mxGeometry y="108" width="586" height="172" as="geometry" />
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-0" value="PreProcessing" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;fontFamily=Lucida Console;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-1">
+          <mxGeometry x="-360" y="250" width="330" height="180" as="geometry">
+            <mxRectangle x="230" y="140" width="160" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-1" value="- filtering: Filtering&#xa;- time_embedding: TimeEmbedding&#xa;" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" vertex="1" parent="Lf7wPIKauT4hmZ3NSnTh-0">
+          <mxGeometry y="26" width="330" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-2" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="Lf7wPIKauT4hmZ3NSnTh-0">
+          <mxGeometry y="90" width="330" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-3" value="+ __init__()&#xa;+ bandpass_filtering(signals: np.ndarray)&#xa;+ decompose_signal(signals: np.ndarray)&#xa;+ embed_time_delay(signals:np.ndarray)&#xa;" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" vertex="1" parent="Lf7wPIKauT4hmZ3NSnTh-0">
+          <mxGeometry y="98" width="330" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-4" value="Filtering" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;fontFamily=Lucida Console;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-1">
+          <mxGeometry x="-560" y="510" width="330" height="210" as="geometry">
+            <mxRectangle x="230" y="140" width="160" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-5" value="- filter_order: int&#xa;- cutoff_frequency_low: float&#xa;- cutoff_frequency_high: float&#xa;- sampling_frequency: float&#xa;- sos_matrices: np.ndarray" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" vertex="1" parent="Lf7wPIKauT4hmZ3NSnTh-4">
+          <mxGeometry y="26" width="330" height="94" as="geometry" />
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-6" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="Lf7wPIKauT4hmZ3NSnTh-4">
+          <mxGeometry y="120" width="330" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-7" value="+ __init__()&#xa;+ construct_filters(subbands: np.ndarray)&#xa;+ bandpass_filter(signals: np.ndarray)&#xa;+ decompose_signal(signals: np.ndarray)&#xa;" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" vertex="1" parent="Lf7wPIKauT4hmZ3NSnTh-4">
+          <mxGeometry y="128" width="330" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-8" value="TimeEmbedding" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;fontFamily=Lucida Console;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-1">
+          <mxGeometry x="-170" y="510" width="330" height="150" as="geometry">
+            <mxRectangle x="230" y="140" width="160" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-9" value="- embedding_dimension: int&#xa;- delay_step: int" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" vertex="1" parent="Lf7wPIKauT4hmZ3NSnTh-8">
+          <mxGeometry y="26" width="330" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-10" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="Lf7wPIKauT4hmZ3NSnTh-8">
+          <mxGeometry y="80" width="330" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-11" value="+ __init__()&#xa;+ embed_time_delay(signals: np.ndarray)" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" vertex="1" parent="Lf7wPIKauT4hmZ3NSnTh-8">
+          <mxGeometry y="88" width="330" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-12" value="Voting" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;fontFamily=Lucida Console;flipH=1;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-1">
+          <mxGeometry x="980" y="250" width="330" height="180" as="geometry">
+            <mxRectangle x="230" y="140" width="160" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-13" value="- voters_count: int&#xa;- random_seed: int&#xa;- channel_selections: np.ndarray" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" vertex="1" parent="Lf7wPIKauT4hmZ3NSnTh-12">
+          <mxGeometry y="26" width="330" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-14" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="Lf7wPIKauT4hmZ3NSnTh-12">
+          <mxGeometry y="90" width="330" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-15" value="+ __init__()&#xa;+ generate_random_selection()&#xa;+ select_channels()" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" vertex="1" parent="Lf7wPIKauT4hmZ3NSnTh-12">
+          <mxGeometry y="98" width="330" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-16" value="GPUCapabilities" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;fontFamily=Lucida Console;flipH=1;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-1">
+          <mxGeometry x="1340" y="250" width="330" height="180" as="geometry">
+            <mxRectangle x="230" y="140" width="160" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-17" value="- use_gpu: bool&#xa;- devices_count: int" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" vertex="1" parent="Lf7wPIKauT4hmZ3NSnTh-16">
+          <mxGeometry y="26" width="330" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-18" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="Lf7wPIKauT4hmZ3NSnTh-16">
+          <mxGeometry y="90" width="330" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-19" value="+ __init__()&#xa;+ get_array_module(array: np.ndarray)&#xa;+ handle_generator(to_copy: np.ndarray)" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" vertex="1" parent="Lf7wPIKauT4hmZ3NSnTh-16">
+          <mxGeometry y="98" width="330" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-20" value="TemplateMatching" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;fontFamily=Lucida Console;flipH=1;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-1">
+          <mxGeometry x="1700" y="250" width="330" height="150" as="geometry">
+            <mxRectangle x="230" y="140" width="160" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-21" value="- harmonics_count: int&#xa;- target_frequencies: np.ndarray&#xa;- samples_count: int&#xa;- sampling_frequency: float" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" vertex="1" parent="Lf7wPIKauT4hmZ3NSnTh-20">
+          <mxGeometry y="26" width="330" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-22" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="Lf7wPIKauT4hmZ3NSnTh-20">
+          <mxGeometry y="90" width="330" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-23" value="+ __init__()&#xa;+ compute_templates()" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" vertex="1" parent="Lf7wPIKauT4hmZ3NSnTh-20">
+          <mxGeometry y="98" width="330" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-24" value="BatchProcessor" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;fontFamily=Lucida Console;flipH=1;" vertex="1" parent="dgEscPDrHbFopAYu3Is1-1">
+          <mxGeometry x="620" y="250" width="330" height="150" as="geometry">
+            <mxRectangle x="230" y="140" width="160" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-25" value=" " style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" vertex="1" parent="Lf7wPIKauT4hmZ3NSnTh-24">
+          <mxGeometry y="26" width="330" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-26" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="Lf7wPIKauT4hmZ3NSnTh-24">
+          <mxGeometry y="90" width="330" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-27" value="+ __init__()&#xa;+ get_current_batch_data()" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontFamily=Lucida Console;" vertex="1" parent="Lf7wPIKauT4hmZ3NSnTh-24">
+          <mxGeometry y="98" width="330" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-33" value="" style="endArrow=diamond;html=1;rounded=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endFill=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="dgEscPDrHbFopAYu3Is1-1" source="Lf7wPIKauT4hmZ3NSnTh-0" target="dgEscPDrHbFopAYu3Is1-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="110" y="260" as="sourcePoint" />
+            <mxPoint x="220" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-34" value="" style="endArrow=diamond;html=1;rounded=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.472;entryY=1.001;entryDx=0;entryDy=0;endFill=1;edgeStyle=orthogonalEdgeStyle;entryPerimeter=0;" edge="1" parent="dgEscPDrHbFopAYu3Is1-1" source="Lf7wPIKauT4hmZ3NSnTh-4" target="Lf7wPIKauT4hmZ3NSnTh-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-185" y="260" as="sourcePoint" />
+            <mxPoint x="259" y="193" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-35" value="" style="endArrow=diamond;html=1;rounded=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;endFill=1;edgeStyle=orthogonalEdgeStyle;entryX=0.47;entryY=1.006;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="dgEscPDrHbFopAYu3Is1-1" source="Lf7wPIKauT4hmZ3NSnTh-8" target="Lf7wPIKauT4hmZ3NSnTh-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="20.23" y="536.88" as="sourcePoint" />
+            <mxPoint x="-210" y="480" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-5" y="470" />
+              <mxPoint x="-205" y="470" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-36" value="" style="endArrow=diamond;html=1;rounded=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endFill=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="dgEscPDrHbFopAYu3Is1-1" source="Lf7wPIKauT4hmZ3NSnTh-24" target="dgEscPDrHbFopAYu3Is1-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-185" y="260" as="sourcePoint" />
+            <mxPoint x="259" y="193" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-37" value="" style="endArrow=diamond;html=1;rounded=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endFill=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="dgEscPDrHbFopAYu3Is1-1" source="Lf7wPIKauT4hmZ3NSnTh-12" target="dgEscPDrHbFopAYu3Is1-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="795" y="260" as="sourcePoint" />
+            <mxPoint x="589" y="193" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-38" value="" style="endArrow=diamond;html=1;rounded=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;endFill=1;edgeStyle=orthogonalEdgeStyle;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="dgEscPDrHbFopAYu3Is1-1" source="Lf7wPIKauT4hmZ3NSnTh-16" target="dgEscPDrHbFopAYu3Is1-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="805" y="270" as="sourcePoint" />
+            <mxPoint x="640" y="210" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1505" y="198" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-39" value="" style="endArrow=diamond;html=1;rounded=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endFill=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="dgEscPDrHbFopAYu3Is1-1" source="Lf7wPIKauT4hmZ3NSnTh-20" target="dgEscPDrHbFopAYu3Is1-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="815" y="280" as="sourcePoint" />
+            <mxPoint x="609" y="213" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-40" value="" style="endArrow=block;html=1;rounded=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endFill=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="dgEscPDrHbFopAYu3Is1-1" source="dgEscPDrHbFopAYu3Is1-14" target="dgEscPDrHbFopAYu3Is1-2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="60" y="737" as="sourcePoint" />
+            <mxPoint x="504" y="670" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-244" y="750" />
+              <mxPoint x="414" y="750" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-41" value="" style="endArrow=block;html=1;rounded=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endFill=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="dgEscPDrHbFopAYu3Is1-1" source="dgEscPDrHbFopAYu3Is1-22" target="dgEscPDrHbFopAYu3Is1-2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-175" y="270" as="sourcePoint" />
+            <mxPoint x="269" y="203" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1063" y="750" />
+              <mxPoint x="414" y="750" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Lf7wPIKauT4hmZ3NSnTh-43" value="" style="endArrow=block;html=1;rounded=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;endFill=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="dgEscPDrHbFopAYu3Is1-1" source="dgEscPDrHbFopAYu3Is1-18" target="dgEscPDrHbFopAYu3Is1-2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1073" y="830" as="sourcePoint" />
+            <mxPoint x="350" y="480" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="414" y="660" />
+              <mxPoint x="414" y="660" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
