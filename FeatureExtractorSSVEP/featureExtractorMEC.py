@@ -363,12 +363,18 @@ class FeatureExtractorMEC(FeatureExtractorTemplateMatching):
         snrs_reshaped = snrs_reshaped[ns]
         snrs = xp.reshape(snrs_reshaped, snrs.shape[0:2])
         
-        a = cp.asnumpy(snrs)
+        if self.use_gpu == True:
+            # Move to CPU memory if only CUDA gpu
+            a = cp.asnumpy(snrs)
+        else:
+            # If CPU, keep it as is. Assign to a to avoid error in the next line
+            a = snrs
+
         if np.isnan(a).any():
             b = 3
         
-        return snrs        
-                            
+        return snrs
+
     def project_signal(self, signal, y_bar_squared, device):
         """Project the signal such that noise has the minimum energy"""  
         xp = self.get_array_module(signal)
