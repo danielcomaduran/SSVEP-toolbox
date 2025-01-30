@@ -51,7 +51,7 @@ class Filtering():
                     output='sos'
                     )
         
-        # Lowpass filter
+        # Highpass filter
         elif self.cutoff_frequency_low:
             self.sos_matrices = butter(self.filter_order, 
                     self.cutoff_frequency_low, 
@@ -60,7 +60,7 @@ class Filtering():
                     output='sos'
                     )
 
-        # Highpass filter    
+        # Lowpass filter    
         elif self.cutoff_frequency_high:
             self.sos_matrices = butter(
                 self.filter_order, 
@@ -93,5 +93,3 @@ class Filtering():
 
         # Apply band-pass filter to all signals
         return sosfiltfilt(self.sos_matrices, all_signals)
-
-    

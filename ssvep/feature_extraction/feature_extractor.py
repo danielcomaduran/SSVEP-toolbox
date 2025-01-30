@@ -7,7 +7,7 @@ from ..preprocessing import Preprocessing
 from ..gpu_processing import GPUProcessing
 from ..batch_processing import BatchProcessing
 from ..channel_selection import ChannelSelection
-from ..template_matching import TemplateMatching
+from ..template_signals import TemplateMatching
 
 class FeatureExtractor(ABC):
     #region Error messages

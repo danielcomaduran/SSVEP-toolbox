@@ -1,5 +1,6 @@
 # Standard libraries
 from abc import ABC, abstractmethod
+import numpy as np
 
 # Custom libraries
 from . import Filtering
