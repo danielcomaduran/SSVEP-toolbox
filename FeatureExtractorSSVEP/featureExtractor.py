@@ -283,6 +283,9 @@ class FeatureExtractor:
         # Filter the signal (if the user has not specified a non-zero
         # filter order, this does nothing.)       
         self.bandpass_filter()
+
+        # Filter the signal to remove power line noise
+        self.line_filter()
         
         # Create new signal by decomposing them according to the given 
         # subbands. Do nothing if is_filterbank flag is False. 
@@ -614,6 +617,7 @@ class FeatureExtractor:
         if self.filter_line <= 0:
             return
         
+        print("Applying notch filter at " + str(self.filter_line) + " Hz")
         [b,a] = iirnotch(
             w0 = self.filter_line,
             Q = 30,

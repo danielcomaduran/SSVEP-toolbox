@@ -47,6 +47,7 @@ class FeatureExtractorCCA(FeatureExtractorTemplateMatching):
             filter_order=0,
             filter_cutoff_low=0,
             filter_cutoff_high=0,
+            filter_line=0,
             voters_count=1,
             random_seed=0,
             use_gpu=False,
@@ -105,6 +106,10 @@ class FeatureExtractorCCA(FeatureExtractorTemplateMatching):
         cutoff_frequency_high: The second cutoff frequency of the bandpass
         filter. This must be a single real positive number.  If filter_order
         is zero, this attribute is ignored.  
+
+        filter_line: The power line frequency to be removed from the signal.
+        This must be a single real positive number.  If set to zero (the
+        default value), no line noise filtering is performed.
         
         subbands: This is the primary way to instruct the classifier whether 
         to use filterbank or not.  The default value is None.  If set to None, 
