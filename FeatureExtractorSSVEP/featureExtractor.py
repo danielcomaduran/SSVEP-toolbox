@@ -1,8 +1,9 @@
 # featureExtractor.py
 """Definition of the class FeatureExtractor"""
+from signal import signal
 import numpy as np
 import sys
-from scipy.signal import sosfiltfilt, butter
+from scipy.signal import sosfiltfilt, filtfilt, butter, iirnotch
 from multiprocessing import Pool
 
 try:
@@ -102,6 +103,9 @@ class FeatureExtractor:
         self.cutoff_frequency_low = 0
         self.cutoff_frequency_high = 0
         
+        # Line frequency to be removed with notch filter (in Hz).
+        self.filter_line = 0
+        
         # The sampling rate of the signal (in samples per second). 
         # It must be a real positive value. 
         self.sampling_frequency = 0
@@ -197,6 +201,7 @@ class FeatureExtractor:
             filter_order=0,
             filter_cutoff_low=0,
             filter_cutoff_high=0,
+            filter_line=0,
             voters_count=1,
             random_seed=0,
             use_gpu=False,
@@ -213,6 +218,7 @@ class FeatureExtractor:
         self.filter_order = filter_order
         self.cutoff_frequency_low = filter_cutoff_low
         self.cutoff_frequency_high = filter_cutoff_high        
+        self.filter_line = filter_line
         self.random_seed = random_seed
         self.voters_count = voters_count
         self.use_gpu = use_gpu
@@ -602,6 +608,19 @@ class FeatureExtractor:
         
         # Operate along the very last dimension of the array. 
         self.all_signals = sosfiltfilt(sos, self.all_signals, axis=-1)
+
+    def line_filter(self):
+        """Filter the given signal to remove power line noise"""
+        if self.filter_line <= 0:
+            return
+        
+        [b,a] = iirnotch(
+            w0 = self.filter_line,
+            Q = 30,
+            fs = self.sampling_frequency,
+            )
+    
+        self.all_signals = filtfilt(b, a, self.all_signals)  
 
     def quit(self, message="Error"):
         """A function to end the program in case of an error"""
