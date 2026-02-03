@@ -617,7 +617,6 @@ class FeatureExtractor:
         if self.filter_line <= 0:
             return
         
-        print("Applying notch filter at " + str(self.filter_line) + " Hz")
         [b,a] = iirnotch(
             w0 = self.filter_line,
             Q = 30,
